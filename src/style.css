@@ -92,3 +92,38 @@ footer img {
   background-color: white;
   color: red;
 }
+
+.gamecontainer {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.imagecontainer {
+  border: 3px solid black;
+  border-radius: 5px;
+}
+
+.imagecontainer > img {
+  width: 90vw;
+  height: auto;
+  object-fit: contain;
+}
+
+.characters-container {
+  display: flex;
+  gap: 2rem;
+}
+
+.character {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.character img {
+  width: auto;
+  height: 250px;
+}
