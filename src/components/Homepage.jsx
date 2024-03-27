@@ -1,8 +1,14 @@
+import Waldo from '../assets/Waldo.png';
+import { Link } from 'react-router-dom';
+
 const HomePage = () => {
   return (
     <main>
-      <h1>Homepage</h1>
-      <h2>Cozy :3</h2>
+      <img id='waldohome' src={Waldo} alt='' />
+      <h1>Can you find Waldo?</h1>
+      <button id='playnow'>
+        <Link to='play'>Play Now!</Link>
+      </button>
     </main>
   );
 };

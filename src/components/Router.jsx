@@ -5,6 +5,7 @@ import ErrorPage from './ErrorPage';
 import Layout from './Layout';
 import LeaderboardPage from './LeaderboardPage';
 import GameLeaderboard from './GameLeaderboard';
+import GamePage from './GamePage';
 
 const Router = () => {
   const router = createBrowserRouter([
@@ -14,6 +15,7 @@ const Router = () => {
       errorElement: <ErrorPage />,
       children: [
         { index: true, element: <HomePage /> },
+        { path: 'play', element: <GamePage /> },
         { path: 'leaderboard', element: <LeaderboardPage /> },
         { path: 'leaderboard/:game', element: <GameLeaderboard /> },
       ],

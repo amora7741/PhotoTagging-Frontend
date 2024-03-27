@@ -5,7 +5,7 @@ const GameLeaderboard = () => {
 
   return (
     <main>
-      <h1>Game: {game}</h1>
+      <h1>{game} Leaderboard</h1>
     </main>
   );
 };
