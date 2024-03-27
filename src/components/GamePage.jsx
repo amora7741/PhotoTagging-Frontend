@@ -24,7 +24,12 @@ const GamePage = () => {
         </div>
       </div>
       <div className='imagecontainer'>
-        <GlassMagnifier magnifierSize='10%' imageSrc={WaldoScene} />
+        <GlassMagnifier
+          cursorStyle='crosshair'
+          square
+          magnifierSize='10%'
+          imageSrc={WaldoScene}
+        />
       </div>
     </main>
   );
