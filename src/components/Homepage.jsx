@@ -1,4 +1,4 @@
-import Waldo from '../assets/Waldo.png';
+import Waldo from '../assets/Waldohome.png';
 import { Link } from 'react-router-dom';
 
 const HomePage = () => {

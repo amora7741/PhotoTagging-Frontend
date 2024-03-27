@@ -84,5 +84,11 @@ footer img {
   color: white;
   background-color: var(--primary);
   padding: 10px 30px;
-  border: none;
+  border: 1px solid red;
+  transition: all 0.3s ease;
+}
+
+#playnow:hover {
+  background-color: white;
+  color: red;
 }
