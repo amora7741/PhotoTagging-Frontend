@@ -1,3 +1,4 @@
+import React, { useState, useRef } from 'react';
 import WaldoScene from '../assets/WaldoScene.jpg';
 import Waldo from '../assets/Waldo.webp';
 import Wizard from '../assets/Wizard.png';
@@ -6,6 +7,24 @@ import Odlaw from '../assets/Odlaw.webp';
 import { GlassMagnifier } from 'react-image-magnifiers';
 
 const GamePage = () => {
+  const [targetCoordinates, setTargetCoordinates] = useState({ x: 0, y: 0 });
+  const [showTargetBox, setShowTargetBox] = useState(false);
+  const picRef = useRef(null);
+
+  const capturePosition = (e) => {
+    const x = Math.round(
+      (100 * (e.pageX - e.currentTarget.offsetLeft)) /
+        picRef.current.offsetWidth
+    );
+    const y = Math.round(
+      (100 * (e.pageY - e.currentTarget.offsetTop)) /
+        picRef.current.offsetHeight
+    );
+
+    setTargetCoordinates({ x, y });
+    setShowTargetBox(true);
+  };
+
   return (
     <main>
       <h1>Find all the Characters!</h1>
@@ -23,13 +42,22 @@ const GamePage = () => {
           <h2>Odlaw</h2>
         </div>
       </div>
-      <div className='imagecontainer'>
+      <div className='imagecontainer' onClick={capturePosition} ref={picRef}>
         <GlassMagnifier
           cursorStyle='crosshair'
           square
           magnifierSize='10%'
           imageSrc={WaldoScene}
         />
+        {showTargetBox && (
+          <div
+            className='target-box'
+            style={{
+              left: `${targetCoordinates.x}%`,
+              top: `${targetCoordinates.y}%`,
+            }}
+          />
+        )}
       </div>
     </main>
   );
