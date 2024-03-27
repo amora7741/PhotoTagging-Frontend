@@ -130,4 +130,5 @@ footer img {
   width: 5%;
   height: 7%;
   border: 3px solid red;
+  transform: translate(-50%, -50%);
 }
