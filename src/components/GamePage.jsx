@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import WaldoScene from '../assets/WaldoScene.jpg';
 import Waldo from '../assets/Waldo.webp';
 import Wizard from '../assets/Wizard.png';
@@ -6,7 +6,7 @@ import Odlaw from '../assets/Odlaw.webp';
 
 const GamePage = () => {
   const [targetCoordinates, setTargetCoordinates] = useState({ x: 0, y: 0 });
-  const [showTargetBox, setShowTargetBox] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const picRef = useRef(null);
 
   const capturePosition = (e) => {
@@ -20,8 +20,16 @@ const GamePage = () => {
     );
 
     setTargetCoordinates({ x, y });
-    setShowTargetBox(true);
+    setShowMenu(true);
   };
+
+  const handleMouseLeave = () => {
+    setShowMenu(false);
+  };
+
+  useEffect(() => {
+    console.log(targetCoordinates);
+  }, [targetCoordinates]);
 
   return (
     <main>
@@ -42,14 +50,22 @@ const GamePage = () => {
       </div>
       <div className='imagecontainer' onClick={capturePosition} ref={picRef}>
         <img src={WaldoScene} alt="Where's Waldo Beach Scene" />
-        {showTargetBox && (
+        {showMenu && (
           <div
-            className='target-box'
+            onMouseLeave={handleMouseLeave}
+            className='menu'
             style={{
               left: `${targetCoordinates.x}%`,
               top: `${targetCoordinates.y}%`,
             }}
-          />
+          >
+            <div className='target-box'></div>
+            <ul className='characterselect'>
+              <li>Waldo</li>
+              <li>Wizard</li>
+              <li>Odlaw</li>
+            </ul>
+          </div>
         )}
       </div>
     </main>
