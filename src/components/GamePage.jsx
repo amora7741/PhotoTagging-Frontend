@@ -8,6 +8,7 @@ const GamePage = () => {
   const [targetCoordinates, setTargetCoordinates] = useState({ x: 0, y: 0 });
   const [showMenu, setShowMenu] = useState(false);
   const picRef = useRef(null);
+  const menuRef = useRef(null);
 
   const capturePosition = (e) => {
     const x = Math.round(
@@ -24,7 +25,10 @@ const GamePage = () => {
   };
 
   const handleMouseLeave = () => {
-    setShowMenu(false);
+    menuRef.current.classList.add('fade-out');
+    setTimeout(() => {
+      setShowMenu(false);
+    }, 500); // 500 milliseconds, adjust as needed
   };
 
   useEffect(() => {
@@ -52,8 +56,9 @@ const GamePage = () => {
         <img src={WaldoScene} alt="Where's Waldo Beach Scene" />
         {showMenu && (
           <div
+            ref={menuRef}
             onMouseLeave={handleMouseLeave}
-            className='menu'
+            className={`menu ${showMenu ? 'fade-in' : ''}`}
             style={{
               left: `${targetCoordinates.x}%`,
               top: `${targetCoordinates.y}%`,
