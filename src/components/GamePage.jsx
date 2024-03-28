@@ -11,14 +11,13 @@ const GamePage = () => {
   const menuRef = useRef(null);
 
   const capturePosition = (e) => {
-    const x = Math.round(
+    const x =
       (100 * (e.pageX - e.currentTarget.offsetLeft)) /
-        picRef.current.offsetWidth
-    );
-    const y = Math.round(
+      picRef.current.offsetWidth;
+
+    const y =
       (100 * (e.pageY - e.currentTarget.offsetTop)) /
-        picRef.current.offsetHeight
-    );
+      picRef.current.offsetHeight;
 
     setTargetCoordinates({ x, y });
     setShowMenu(true);
@@ -28,7 +27,7 @@ const GamePage = () => {
     menuRef.current.classList.add('fade-out');
     setTimeout(() => {
       setShowMenu(false);
-    }, 500); // 500 milliseconds, adjust as needed
+    }, 300);
   };
 
   useEffect(() => {
@@ -58,18 +57,18 @@ const GamePage = () => {
           <div
             ref={menuRef}
             onMouseLeave={handleMouseLeave}
-            className={`menu ${showMenu ? 'fade-in' : ''}`}
+            className='menu'
             style={{
               left: `${targetCoordinates.x}%`,
               top: `${targetCoordinates.y}%`,
             }}
           >
             <div className='target-box'></div>
-            <ul className='characterselect'>
-              <li>Waldo</li>
-              <li>Wizard</li>
-              <li>Odlaw</li>
-            </ul>
+            <div className='characterselect'>
+              <button>Waldo</button>
+              <button>Wizard</button>
+              <button>Odlaw</button>
+            </div>
           </div>
         )}
       </div>

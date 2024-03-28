@@ -136,6 +136,7 @@ footer img {
   align-items: center;
   justify-content: center;
   transform: translateX(-50%) translateY(-15%);
+  animation: fadeIn 0.3s ease-in forwards;
 }
 
 .target-box {
@@ -155,10 +156,12 @@ footer img {
   transform-origin: top;
 }
 
-.characterselect li {
+.characterselect button {
   padding: 5px;
-  background-color: rgba(0, 0, 0, 0.431);
+  font-size: 1.5rem;
   color: inherit;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.374);
 }
 
 @keyframes expand {
@@ -173,10 +176,6 @@ footer img {
   100% {
     transform: scaleY(1);
   }
-}
-
-.fade-in {
-  animation: fadeIn 0.3s ease-in forwards;
 }
 
 .fade-out {
