@@ -1,10 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import WaldoScene from '../assets/WaldoScene.jpg';
 import Waldo from '../assets/Waldo.webp';
 import Wizard from '../assets/Wizard.png';
 import Odlaw from '../assets/Odlaw.webp';
-
-import { GlassMagnifier } from 'react-image-magnifiers';
 
 const GamePage = () => {
   const [targetCoordinates, setTargetCoordinates] = useState({ x: 0, y: 0 });
