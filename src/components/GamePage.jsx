@@ -23,16 +23,16 @@ const GamePage = () => {
     setShowMenu(true);
   };
 
-  const handleMouseLeave = () => {
+  const handleMenuClose = () => {
     menuRef.current.classList.add('fade-out');
     setTimeout(() => {
       setShowMenu(false);
     }, 300);
   };
 
-  useEffect(() => {
-    console.log(targetCoordinates);
-  }, [targetCoordinates]);
+  const handleMenuClick = (e) => {
+    e.stopPropagation();
+  };
 
   return (
     <main>
@@ -56,7 +56,8 @@ const GamePage = () => {
         {showMenu && (
           <div
             ref={menuRef}
-            onMouseLeave={handleMouseLeave}
+            onMouseLeave={handleMenuClose}
+            onClick={handleMenuClick}
             className='menu'
             style={{
               left: `${targetCoordinates.x}%`,
