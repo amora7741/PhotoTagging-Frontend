@@ -100,11 +100,15 @@ footer img {
 }
 
 .imagecontainer {
-  width: 90vw;
   position: relative;
   border: 3px solid black;
   border-radius: 5px;
   overflow: hidden;
+}
+
+.imagecontainer > img {
+  width: 100%;
+  height: auto;
 }
 
 .characters-container {

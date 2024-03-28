@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import WaldoScene from '../assets/WaldoScene.jpg';
 import Waldo from '../assets/Waldo.webp';
 import Wizard from '../assets/Wizard.png';
@@ -43,12 +43,7 @@ const GamePage = () => {
         </div>
       </div>
       <div className='imagecontainer' onClick={capturePosition} ref={picRef}>
-        <GlassMagnifier
-          cursorStyle='crosshair'
-          square
-          magnifierSize='10%'
-          imageSrc={WaldoScene}
-        />
+        <img src={WaldoScene} alt="Where's Waldo Beach Scene" />
         {showTargetBox && (
           <div
             className='target-box'
