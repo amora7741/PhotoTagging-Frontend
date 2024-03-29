@@ -6,6 +6,7 @@ import Odlaw from '../assets/Odlaw.webp';
 
 import GlassMagnifier from '@vanyapr/react-image-magnifiers/dist/GlassMagnifier';
 import { useMediaQuery } from 'react-responsive';
+import API_URL from '../assets/baseapi';
 
 const GamePage = () => {
   const [targetCoordinates, setTargetCoordinates] = useState({ x: 0, y: 0 });
@@ -43,11 +44,31 @@ const GamePage = () => {
     e.stopPropagation();
   };
 
-  const handleCharacterClick = (character) => {
+  const checkIfCharacterPresent = async (character) => {
+    const URI = `${API_URL}/coordinates/`;
+    console.log(URI);
+    try {
+      const response = await fetch(URI);
+
+      const found = await response.json();
+
+      console.log(found);
+
+      return found;
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  const handleCharacterClick = async (character) => {
+    const characterIsPresent = await checkIfCharacterPresent(character);
     handleMenuClose();
-    setAvailableCharacters(
-      availableCharacters.filter((char) => char !== character)
-    );
+
+    if (characterIsPresent) {
+      setAvailableCharacters(
+        availableCharacters.filter((char) => char !== character)
+      );
+    }
   };
 
   return (
