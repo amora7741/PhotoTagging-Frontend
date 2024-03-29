@@ -12,6 +12,7 @@ const GamePage = () => {
   const [showMenu, setShowMenu] = useState(false);
   const picRef = useRef(null);
   const menuRef = useRef(null);
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
 
   const capturePosition = (e) => {
     const x =
@@ -55,13 +56,18 @@ const GamePage = () => {
         </div>
       </div>
       <div className='imagecontainer' onClick={capturePosition} ref={picRef}>
-        <GlassMagnifier
-          imageSrc={WaldoScene}
-          imageAlt="Where's Waldo Beach Scene"
-          square
-          magnifierSize='10%'
-          cursorStyle='crosshair'
-        />
+        {isTabletOrMobile ? (
+          <img src={WaldoScene} alt="Where's Waldo Beach Scene" />
+        ) : (
+          <GlassMagnifier
+            imageSrc={WaldoScene}
+            imageAlt="Where's Waldo Beach Scene"
+            square
+            magnifierSize='10%'
+            cursorStyle='crosshair'
+          />
+        )}
+
         {showMenu && (
           <div
             ref={menuRef}
