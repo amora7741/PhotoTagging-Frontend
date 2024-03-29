@@ -10,6 +10,11 @@ import { useMediaQuery } from 'react-responsive';
 const GamePage = () => {
   const [targetCoordinates, setTargetCoordinates] = useState({ x: 0, y: 0 });
   const [showMenu, setShowMenu] = useState(false);
+  const [availableCharacters, setAvailableCharacters] = useState([
+    'Waldo',
+    'Wizard',
+    'Odlaw',
+  ]);
   const picRef = useRef(null);
   const menuRef = useRef(null);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
@@ -38,22 +43,25 @@ const GamePage = () => {
     e.stopPropagation();
   };
 
+  const handleCharacterClick = (character) => {
+    handleMenuClose();
+    setAvailableCharacters(
+      availableCharacters.filter((char) => char !== character)
+    );
+  };
+
   return (
     <main>
       <h1>Find all the Characters!</h1>
       <div className='characters-container'>
-        <div className='character'>
-          <img src={Waldo} alt='' />
-          <h2>Waldo</h2>
-        </div>
-        <div className='character'>
-          <img src={Wizard} alt='' />
-          <h2>Wizard</h2>
-        </div>
-        <div className='character'>
-          <img src={Odlaw} alt='' />
-          <h2>Odlaw</h2>
-        </div>
+        {availableCharacters.map((character) => (
+          <div key={character} className='character'>
+            {character === 'Waldo' && <img src={Waldo} alt='' />}
+            {character === 'Wizard' && <img src={Wizard} alt='' />}
+            {character === 'Odlaw' && <img src={Odlaw} alt='' />}
+            <h2>{character}</h2>
+          </div>
+        ))}
       </div>
       <div className='imagecontainer' onClick={capturePosition} ref={picRef}>
         {isTabletOrMobile ? (
@@ -81,9 +89,14 @@ const GamePage = () => {
           >
             <div className='target-box'></div>
             <div className='characterselect'>
-              <button>Waldo</button>
-              <button>Wizard</button>
-              <button>Odlaw</button>
+              {availableCharacters.map((character) => (
+                <button
+                  key={character}
+                  onClick={() => handleCharacterClick(character)}
+                >
+                  {character}
+                </button>
+              ))}
             </div>
           </div>
         )}
