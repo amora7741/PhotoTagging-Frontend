@@ -2,6 +2,7 @@
 
 :root {
   --primary: rgb(205, 0, 0);
+  --beige: rgb(255, 243, 225);
 }
 
 * {
@@ -14,7 +15,7 @@
 
 body {
   min-height: 100vh;
-  background-color: rgb(255, 243, 225);
+  background-color: var(--beige);
 }
 
 #root {
@@ -89,7 +90,7 @@ footer img {
 }
 
 #playnow:hover {
-  background-color: white;
+  background-color: var(--beige);
   color: red;
 }
 
@@ -198,4 +199,12 @@ footer img {
   to {
     opacity: 0;
   }
+}
+
+.leaderboard-container {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  border: 3px dashed var(--primary);
+  max-width: 70vw;
 }

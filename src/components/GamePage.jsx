@@ -45,26 +45,24 @@ const GamePage = () => {
   };
 
   const checkIfCharacterPresent = async (character) => {
-    const URI = `${API_URL}/coordinates/`;
-    console.log(URI);
+    const URI = `${API_URL}/coordinates/${character}&${targetCoordinates.x}&${targetCoordinates.y}`;
+
     try {
       const response = await fetch(URI);
 
       const found = await response.json();
 
-      console.log(found);
-
       return found;
     } catch (err) {
-      alert(err);
+      console.error(err);
     }
   };
 
   const handleCharacterClick = async (character) => {
-    const characterIsPresent = await checkIfCharacterPresent(character);
     handleMenuClose();
+    const characterPresent = await checkIfCharacterPresent(character);
 
-    if (characterIsPresent) {
+    if (characterPresent) {
       setAvailableCharacters(
         availableCharacters.filter((char) => char !== character)
       );
