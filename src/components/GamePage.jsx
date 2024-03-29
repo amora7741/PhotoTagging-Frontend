@@ -4,6 +4,9 @@ import Waldo from '../assets/Waldo.webp';
 import Wizard from '../assets/Wizard.png';
 import Odlaw from '../assets/Odlaw.webp';
 
+import GlassMagnifier from '@vanyapr/react-image-magnifiers/dist/GlassMagnifier';
+import { useMediaQuery } from 'react-responsive';
+
 const GamePage = () => {
   const [targetCoordinates, setTargetCoordinates] = useState({ x: 0, y: 0 });
   const [showMenu, setShowMenu] = useState(false);
@@ -52,7 +55,13 @@ const GamePage = () => {
         </div>
       </div>
       <div className='imagecontainer' onClick={capturePosition} ref={picRef}>
-        <img src={WaldoScene} alt="Where's Waldo Beach Scene" />
+        <GlassMagnifier
+          imageSrc={WaldoScene}
+          imageAlt="Where's Waldo Beach Scene"
+          square
+          magnifierSize='10%'
+          cursorStyle='crosshair'
+        />
         {showMenu && (
           <div
             ref={menuRef}
