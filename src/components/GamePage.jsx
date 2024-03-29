@@ -6,7 +6,10 @@ import Odlaw from '../assets/Odlaw.webp';
 
 import GlassMagnifier from '@vanyapr/react-image-magnifiers/dist/GlassMagnifier';
 import { useMediaQuery } from 'react-responsive';
+import { useNavigate } from 'react-router-dom';
 import API_URL from '../assets/baseapi';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 const GamePage = () => {
   const [targetCoordinates, setTargetCoordinates] = useState({ x: 0, y: 0 });
@@ -16,8 +19,10 @@ const GamePage = () => {
     'Wizard',
     'Odlaw',
   ]);
+  const [isEmpty, setIsEmpty] = useState(false);
   const picRef = useRef(null);
   const menuRef = useRef(null);
+  const navigate = useNavigate();
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
 
   const capturePosition = (e) => {
@@ -68,6 +73,14 @@ const GamePage = () => {
       );
     }
   };
+
+  const handleFormSubmit = async (nickname) => {};
+
+  useEffect(() => {
+    if (availableCharacters.length === 0) {
+      setIsEmpty(true);
+    }
+  }, [availableCharacters]);
 
   return (
     <main>
@@ -120,6 +133,21 @@ const GamePage = () => {
           </div>
         )}
       </div>
+      <Popup open={isEmpty} modal>
+        <h1>You Found Everyone!</h1>
+        <h2>Join the Leaderboard:</h2>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault;
+            handleFormSubmit(e.target.name.value);
+          }}
+        >
+          <input type='text' name='name' placeholder='Nickname' />
+          <button type='submit' id='formsubmit'>
+            Submit
+          </button>
+        </form>
+      </Popup>
     </main>
   );
 };

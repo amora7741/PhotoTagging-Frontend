@@ -80,7 +80,8 @@ footer img {
   height: 300px;
 }
 
-#playnow {
+#playnow,
+#formsubmit {
   font-size: inherit;
   color: white;
   background-color: var(--primary);
@@ -89,7 +90,8 @@ footer img {
   transition: all 0.3s ease;
 }
 
-#playnow:hover {
+#playnow:hover,
+#formsubmit:hover {
   background-color: var(--beige);
   color: red;
 }
@@ -207,4 +209,27 @@ footer img {
   padding: 30px;
   border: 3px dashed var(--primary);
   max-width: 70vw;
+}
+
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  width: auto;
+  padding: 10px 30px;
+  border-radius: 5px;
+  background-color: var(--beige);
+}
+
+input {
+  padding: 5px;
+  background-color: transparent;
+  border: 3px dashed var(--primary);
+  font-size: 1.5rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
 }
