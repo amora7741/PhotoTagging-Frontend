@@ -214,6 +214,7 @@ footer img {
 
 .leaderboard-container h1 {
   padding: 30px;
+  border-bottom: 3px dashed var(--primary);
 }
 
 .score-container {

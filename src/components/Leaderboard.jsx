@@ -26,7 +26,9 @@ const LeaderboardPage = () => {
         <h1>Leaderboard</h1>
         <ol className='score-container'>
           {users.map((user, index) => (
-            <li key={index}>{user.nickname}</li>
+            <li key={index}>
+              {user.nickname} - {user.duration}
+            </li>
           ))}
         </ol>
       </div>

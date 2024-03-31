@@ -20,6 +20,7 @@ const GamePage = () => {
     'Odlaw',
   ]);
   const [isEmpty, setIsEmpty] = useState(false);
+  const [duration, setDuration] = useState(null); // State to store the duration
   const picRef = useRef(null);
   const menuRef = useRef(null);
   const navigate = useNavigate();
@@ -76,7 +77,9 @@ const GamePage = () => {
 
   const handleFormSubmit = async (nickname) => {
     const URI = `${API_URL}/users`;
-    const data = { nickname };
+    const data = { nickname, duration };
+
+    console.log(data);
 
     try {
       const response = await fetch(URI, {
@@ -94,11 +97,35 @@ const GamePage = () => {
     }
   };
 
+  const handleImageLoad = () => {
+    const URI = `${API_URL}/timer/starttimer`;
+    fetch(URI, { method: 'POST' })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to start timer on backend');
+        }
+      })
+      .catch((error) => console.error(error));
+  };
+
   useEffect(() => {
     if (availableCharacters.length === 0) {
       setIsEmpty(true);
+      fetch(`${API_URL}/timer/stoptimer`, { method: 'POST' })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error('Failed to notify backend about game over');
+          }
+        })
+        .then((data) => {
+          setDuration(data.duration);
+        })
+        .catch((error) => console.error(error))
+        .finally(console.log(duration));
     }
-  }, [availableCharacters]);
+  }, [availableCharacters, duration]);
 
   return (
     <main>
@@ -115,7 +142,11 @@ const GamePage = () => {
       </div>
       <div className='imagecontainer' onClick={capturePosition} ref={picRef}>
         {isTabletOrMobile ? (
-          <img src={WaldoScene} alt="Where's Waldo Beach Scene" />
+          <img
+            src={WaldoScene}
+            alt="Where's Waldo Beach Scene"
+            onLoad={() => handleImageLoad()}
+          />
         ) : (
           <GlassMagnifier
             imageSrc={WaldoScene}
@@ -123,7 +154,7 @@ const GamePage = () => {
             square
             magnifierSize='10%'
             cursorStyle='crosshair'
-            onImageLoad={() => console.log('Pic loaded!')}
+            onImageLoad={() => handleImageLoad()}
           />
         )}
 
@@ -166,6 +197,7 @@ const GamePage = () => {
             Submit
           </button>
         </form>
+        {duration && <p>Duration: {duration} seconds</p>}
       </Popup>
     </main>
   );
