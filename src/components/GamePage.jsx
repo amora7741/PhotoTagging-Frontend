@@ -66,12 +66,17 @@ const GamePage = () => {
 
   const handleCharacterClick = async (character) => {
     handleMenuClose();
-    const characterPresent = await checkIfCharacterPresent(character);
 
-    if (characterPresent) {
-      setAvailableCharacters(
-        availableCharacters.filter((char) => char !== character)
-      );
+    try {
+      const characterPresent = await checkIfCharacterPresent(character);
+
+      if (characterPresent) {
+        setAvailableCharacters(
+          availableCharacters.filter((char) => char !== character)
+        );
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -97,34 +102,42 @@ const GamePage = () => {
     }
   };
 
-  const handleImageLoad = () => {
+  const handleImageLoad = async () => {
     const URI = `${API_URL}/timer/starttimer`;
-    fetch(URI, { method: 'POST' })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to start timer on backend');
-        }
-      })
-      .catch((error) => console.error(error));
+
+    try {
+      const response = await fetch(URI, { method: 'POST' });
+
+      if (!response.ok) {
+        throw new Error('Failed to start timer on backend');
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   useEffect(() => {
-    if (availableCharacters.length === 0) {
-      setIsEmpty(true);
-      fetch(`${API_URL}/timer/stoptimer`, { method: 'POST' })
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          } else {
+    const checkWin = async () => {
+      try {
+        if (availableCharacters.length === 0) {
+          setIsEmpty(true);
+          const response = await fetch(`${API_URL}/timer/stoptimer`, {
+            method: 'POST',
+          });
+          if (!response.ok) {
             throw new Error('Failed to notify backend about game over');
           }
-        })
-        .then((data) => {
+          const data = await response.json();
           setDuration(data.duration);
-        })
-        .catch((error) => console.error(error))
-        .finally(console.log(duration));
-    }
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        console.log(duration);
+      }
+    };
+
+    checkWin();
   }, [availableCharacters, duration]);
 
   return (
