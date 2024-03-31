@@ -74,7 +74,25 @@ const GamePage = () => {
     }
   };
 
-  const handleFormSubmit = async (nickname) => {};
+  const handleFormSubmit = async (nickname) => {
+    const URI = `${API_URL}/users`;
+    const data = { nickname };
+
+    try {
+      const response = await fetch(URI, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      const created = await response.json();
+      console.log(created);
+
+      navigate('/');
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
     if (availableCharacters.length === 0) {
@@ -105,6 +123,7 @@ const GamePage = () => {
             square
             magnifierSize='10%'
             cursorStyle='crosshair'
+            onImageLoad={() => console.log('Pic loaded!')}
           />
         )}
 
@@ -138,11 +157,11 @@ const GamePage = () => {
         <h2>Join the Leaderboard:</h2>
         <form
           onSubmit={(e) => {
-            e.preventDefault;
-            handleFormSubmit(e.target.name.value);
+            e.preventDefault();
+            handleFormSubmit(e.target.nickname.value);
           }}
         >
-          <input type='text' name='name' placeholder='Nickname' />
+          <input type='text' name='nickname' placeholder='Nickname' />
           <button type='submit' id='formsubmit'>
             Submit
           </button>
