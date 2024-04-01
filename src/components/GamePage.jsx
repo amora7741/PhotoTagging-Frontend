@@ -6,7 +6,7 @@ import Odlaw from '../assets/Odlaw.webp';
 
 import GlassMagnifier from '@vanyapr/react-image-magnifiers/dist/GlassMagnifier';
 import { useMediaQuery } from 'react-responsive';
-import { useNavigate } from 'react-router-dom';
+import { json, useNavigate } from 'react-router-dom';
 import API_URL from '../assets/baseapi';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
@@ -111,6 +111,10 @@ const GamePage = () => {
       if (!response.ok) {
         throw new Error('Failed to start timer on backend');
       }
+
+      const data = await response.json();
+
+      sessionStorage.setItem('token', JSON.stringify(data.token));
     } catch (err) {
       console.error(err);
     }
@@ -120,25 +124,32 @@ const GamePage = () => {
     const checkWin = async () => {
       try {
         if (availableCharacters.length === 0) {
-          setIsEmpty(true);
+          const tokenData = {
+            token: JSON.parse(sessionStorage.getItem('token')),
+          };
+
           const response = await fetch(`${API_URL}/timer/stoptimer`, {
             method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(tokenData),
           });
+
           if (!response.ok) {
             throw new Error('Failed to notify backend about game over');
           }
+
           const data = await response.json();
-          setDuration(data.duration);
+
+          setDuration(data.seconds);
+          setIsEmpty(true);
         }
       } catch (error) {
         console.error(error);
-      } finally {
-        console.log(duration);
       }
     };
 
     checkWin();
-  }, [availableCharacters, duration]);
+  }, [availableCharacters]);
 
   return (
     <main>
