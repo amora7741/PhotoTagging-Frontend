@@ -24,13 +24,24 @@ const LeaderboardPage = () => {
     <main>
       <div className='leaderboard-container'>
         <h1>Leaderboard</h1>
-        <ol className='score-container'>
-          {users.map((user, index) => (
-            <li key={index}>
-              {user.nickname} - {user.duration}
-            </li>
-          ))}
-        </ol>
+        <table className='score-container'>
+          <thead>
+            <tr>
+              <th>Place</th>
+              <th>Username</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user, index) => (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{user.nickname}</td>
+                <td>{user.duration.toFixed(2)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </main>
   );
