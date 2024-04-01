@@ -30,6 +30,7 @@ const LeaderboardPage = () => {
               <th>Place</th>
               <th>Username</th>
               <th>Time</th>
+              <th>Date</th>
             </tr>
           </thead>
           <tbody>
@@ -38,6 +39,7 @@ const LeaderboardPage = () => {
                 <td>{index + 1}</td>
                 <td>{user.nickname}</td>
                 <td>{user.duration.toFixed(2)}</td>
+                <td>{user.localDate}</td>
               </tr>
             ))}
           </tbody>

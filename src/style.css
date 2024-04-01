@@ -221,9 +221,11 @@ footer img {
   overflow-y: auto;
 }
 
-.score-container th,
+.score-container th {
+  padding: 30px;
+}
 .score-container td {
-  padding: 10px;
+  padding: 20px 15px;
 }
 .popup-content {
   display: flex;
