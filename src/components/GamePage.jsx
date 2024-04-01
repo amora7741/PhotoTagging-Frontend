@@ -7,7 +7,6 @@ import Odlaw from '../assets/Odlaw.webp';
 import GlassMagnifier from '@vanyapr/react-image-magnifiers/dist/GlassMagnifier';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
-import API_URL from '../assets/baseapi';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
@@ -52,7 +51,9 @@ const GamePage = () => {
   };
 
   const checkIfCharacterPresent = async (character) => {
-    const URI = `${API_URL}/coordinates/${character}&${targetCoordinates.x}&${targetCoordinates.y}`;
+    const URI = `${import.meta.env.VITE_BASE_API}/coordinates/${character}&${
+      targetCoordinates.x
+    }&${targetCoordinates.y}`;
 
     try {
       const response = await fetch(URI);
@@ -82,7 +83,7 @@ const GamePage = () => {
   };
 
   const handleFormSubmit = async (nickname) => {
-    const URI = `${API_URL}/users`;
+    const URI = `${import.meta.env.VITE_BASE_API}/users`;
     const data = { nickname, duration };
 
     try {
@@ -107,7 +108,7 @@ const GamePage = () => {
   };
 
   const handleImageLoad = async () => {
-    const URI = `${API_URL}/timer/starttimer`;
+    const URI = `${import.meta.env.VITE_BASE_API}/timer/starttimer`;
 
     try {
       const response = await fetch(URI, { method: 'POST' });
@@ -132,11 +133,14 @@ const GamePage = () => {
             token: JSON.parse(sessionStorage.getItem('token')),
           };
 
-          const response = await fetch(`${API_URL}/timer/stoptimer`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(tokenData),
-          });
+          const response = await fetch(
+            `${import.meta.env.VITE_BASE_API}/timer/stoptimer`,
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(tokenData),
+            }
+          );
 
           if (!response.ok) {
             throw new Error('Failed to notify backend about game over');

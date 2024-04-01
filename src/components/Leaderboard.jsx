@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import API_URL from '../assets/baseapi';
 import { RingLoader } from 'react-spinners';
 
 const LeaderboardPage = () => {
@@ -9,7 +8,7 @@ const LeaderboardPage = () => {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const URI = `${API_URL}/users`;
+      const URI = `${import.meta.env.VITE_BASE_API}/users`;
       const response = await fetch(URI);
       const userData = await response.json();
 
