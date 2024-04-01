@@ -49,7 +49,7 @@ const LeaderboardPage = () => {
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{user.nickname}</td>
-                  <td>{user.duration.toFixed(2)}</td>
+                  <td>{user.duration.toFixed(2)}s</td>
                   <td>{user.localDate}</td>
                 </tr>
               ))}
