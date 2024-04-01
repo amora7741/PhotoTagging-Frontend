@@ -15,7 +15,7 @@ const LeaderboardPage = () => {
 
       setUsers(userData);
     } catch (err) {
-      console.log(err);
+      alert('Failed to fetch leaderboard.');
     } finally {
       setLoading(false);
     }

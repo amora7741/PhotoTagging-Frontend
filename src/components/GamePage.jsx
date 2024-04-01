@@ -6,7 +6,7 @@ import Odlaw from '../assets/Odlaw.webp';
 
 import GlassMagnifier from '@vanyapr/react-image-magnifiers/dist/GlassMagnifier';
 import { useMediaQuery } from 'react-responsive';
-import { json, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import API_URL from '../assets/baseapi';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
@@ -20,7 +20,8 @@ const GamePage = () => {
     'Odlaw',
   ]);
   const [isEmpty, setIsEmpty] = useState(false);
-  const [duration, setDuration] = useState(null); // State to store the duration
+  const [duration, setDuration] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
   const picRef = useRef(null);
   const menuRef = useRef(null);
   const navigate = useNavigate();
@@ -60,7 +61,7 @@ const GamePage = () => {
 
       return found;
     } catch (err) {
-      console.error(err);
+      alert('Failed to connect to server.');
     }
   };
 
@@ -84,8 +85,6 @@ const GamePage = () => {
     const URI = `${API_URL}/users`;
     const data = { nickname, duration };
 
-    console.log(data);
-
     try {
       const response = await fetch(URI, {
         method: 'POST',
@@ -93,12 +92,17 @@ const GamePage = () => {
         body: JSON.stringify(data),
       });
 
-      const created = await response.json();
-      console.log(created);
+      if (!response.ok) {
+        const errorData = await response.json();
+        const errorMessage = errorData.errors[0].msg;
+        throw new Error(errorMessage);
+      }
 
       navigate('/');
     } catch (err) {
-      console.log(err);
+      if (err.message) {
+        setErrorMessage(err.message);
+      }
     }
   };
 
@@ -116,7 +120,7 @@ const GamePage = () => {
 
       sessionStorage.setItem('token', JSON.stringify(data.token));
     } catch (err) {
-      console.error(err);
+      alert(err);
     }
   };
 
@@ -144,7 +148,7 @@ const GamePage = () => {
           setIsEmpty(true);
         }
       } catch (error) {
-        console.error(error);
+        alert(error);
       }
     };
 
@@ -222,6 +226,7 @@ const GamePage = () => {
           </button>
         </form>
         {duration && <p>Duration: {duration} seconds</p>}
+        {errorMessage && <p>Error: {errorMessage}</p>}
       </Popup>
     </main>
   );
