@@ -116,6 +116,7 @@ footer img {
 
 .characters-container {
   display: flex;
+  justify-content: center;
   gap: 2rem;
 }
 
@@ -248,4 +249,37 @@ input {
 form {
   display: flex;
   flex-direction: column;
+}
+
+@media (max-width: 530px) {
+  .leaderboard-container {
+    border: none;
+    width: 100%;
+  }
+
+  .score-container th,
+  .score-container td {
+    padding: 10px;
+    font-size: 1rem;
+  }
+
+  #waldohome {
+    height: 200px;
+  }
+
+  .characters-container {
+    width: 100%;
+    justify-content: space-around;
+  }
+  .character img {
+    height: 125px;
+  }
+
+  .character h2 {
+    font-size: 1.2rem;
+  }
+
+  main h1 {
+    font-size: 2rem;
+  }
 }
