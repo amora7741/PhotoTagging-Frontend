@@ -219,7 +219,16 @@ footer img {
 }
 
 .score-container {
+  display: block;
   overflow-y: auto;
+  scrollbar-color: var(--primary) transparent;
+  scrollbar-width: thin;
+}
+
+.score-container thead {
+  position: sticky;
+  background-color: var(--beige);
+  top: 0;
 }
 
 .score-container th {
