@@ -11,6 +11,6 @@ This PhotoTagging project acts as the popular puzzle game, Where's Waldo?, only 
 * First run the backend -> [Instructions](https://github.com/amora7741/PhotoTagging-Backend)
 * Clone the repository using `git clone`
 * `cd` into the PhotoTagging-Frontend directory
-* Create a .env file in the root of the project, 
+* Create a .env file in the root of the project, and add the variable VITE_BASE_API containing the backend url, with the default local url being http://localhost:3000, i.e `VITE_BASE_API="http://localhost:3000"`.
 * Run `npm i` to install the required dependencies
 * Run `npm run dev` to start the project and navigate to `http://localhost:3000` to see the project in action 
