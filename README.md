@@ -14,3 +14,6 @@ This PhotoTagging project acts as the popular puzzle game, Where's Waldo?, only 
 * Create a .env file in the root of the project, and add the variable VITE_BASE_API containing the backend url, with the default local url being http://localhost:3000, i.e `VITE_BASE_API="http://localhost:3000"`.
 * Run `npm i` to install the required dependencies
 * Run `npm run dev` to start the project and navigate to `http://localhost:3000` to see the project in action 
+
+![image](https://github.com/amora7741/PhotoTagging-Frontend/assets/104049707/b2d14d9b-03ac-476e-b10a-e33519b872bc)
+![image](https://github.com/amora7741/PhotoTagging-Frontend/assets/104049707/a751a12d-3ff1-4b50-b1b6-42a21137ef0f)
